@@ -1,2 +1,2 @@
 #!/bin/bash
-export PROJECT="dna.common"
+export PROJECT="dnacommon"

@@ -1,13 +1,13 @@
 
 =================
-dna.common Module
+dnacommon Module
 =================
 
 **Sammlung von Python Code in Form eines installierbaren Python Package. Dieser Code findet im Umgang mit AWS, DWH und dem DataLake immer wieder Verwendung.**
 
 Installation des package
 -------------------------
-``pip install git+https://github.com/hypoport/ep-dna-common.git@v0.1#egg=dna.common``
+``pip install git+https://github.com/hypoport/ep-dna-common.git@v0.1#egg=dnacommon``
 
 
 Versionierung/Tagging des package
