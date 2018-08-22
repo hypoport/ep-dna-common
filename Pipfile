@@ -4,13 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-dataclasses = "*"
 "boto3" = "*"
-sqlalchemy = "*"
-pytz = "*"
-requests = "*"
-csv = "*"
-sqlalchemy-redshift = "*"
 
 [dev-packages]
 "boto3" = "*"
@@ -18,4 +12,4 @@ pytest = "*"
 pytest-runner = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.6"
