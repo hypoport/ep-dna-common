@@ -7,7 +7,7 @@ dnacommon Module
 
 Installation des package
 -------------------------
-``pip install git+https://github.com/hypoport/ep-dna-common.git@v0.1#egg=dnacommon``
+``pip install git+https://github.com/hypoport/ep-dna-common.git@2018-08-22-10-40-45#egg=dnacommon``
 
 
 Versionierung/Tagging des package
