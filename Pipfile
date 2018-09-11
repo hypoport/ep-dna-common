@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 "boto3" = "*"
 dataclasses = "*"
+sqlalchemy = "*"
+sqlalchemy-redshift = "*"
+python-aws-dataclasses = {git = "https://github.com/hypoport/python-aws-dataclasses.git", ref = "dev"}
 
 [dev-packages]
 "boto3" = "*"
