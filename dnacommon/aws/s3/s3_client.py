@@ -13,7 +13,7 @@ class S3Client:
         bucket = self.s3_resource.Bucket(bucket)
         obj = bucket.Object(path)
         # TODO: not optimal
-        if content in BytesIO:
+        if isinstance(content, BytesIO):
             obj.put(Body=content)
         else:
             obj.put(Body=content.encode('utf-8'))
