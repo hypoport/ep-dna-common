@@ -12,7 +12,11 @@ class S3Client:
     def upload(self, bucket, path, content):
         bucket = self.s3_resource.Bucket(bucket)
         obj = bucket.Object(path)
-        obj.put(Body=content.encode('utf-8'))
+        # TODO: not optimal
+        if content in BytesIO:
+            obj.put(Body=content)
+        else:
+            obj.put(Body=content.encode('utf-8'))
 
     def get_content(self, bucket, path) -> str:
         bucket = self.s3_resource.Bucket(bucket)
