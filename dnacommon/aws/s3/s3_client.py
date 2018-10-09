@@ -21,7 +21,10 @@ class S3Client:
     def get_content(self, bucket, path) -> str:
         bucket = self.s3_resource.Bucket(bucket)
         obj = bucket.Object(path)
-        return obj.get()['Body'].read().decode("utf-8")
+        content = obj.get()['Body'].read()
+        if isinstance(content, BytesIO):
+            return content
+        return content.decode('utf-8')
 
     def content_readlines(self, bucket, path):
         bucket = self.s3_resource.Bucket(bucket)
