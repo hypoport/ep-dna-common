@@ -22,7 +22,7 @@ class S3Client:
         bucket = self.s3_resource.Bucket(bucket)
         obj = bucket.Object(path)
         content = obj.get()['Body'].read()
-        if isinstance(content, BytesIO):
+        if isinstance(content, bytes):
             return content
         return content.decode('utf-8')
 
