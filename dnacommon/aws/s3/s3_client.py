@@ -18,10 +18,11 @@ class S3Client:
         else:
             obj.put(Body=content.encode('utf-8'))
 
-    def get_content(self, bucket, path) -> str:
+    def get_content(self, bucket, path):
         bucket = self.s3_resource.Bucket(bucket)
         obj = bucket.Object(path)
         content = obj.get()['Body'].read()
+        # TODO: not optimal
         if isinstance(content, bytes):
             return content
         return content.decode('utf-8')
