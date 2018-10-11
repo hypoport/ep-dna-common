@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     # Needed to silence warnings (and to be a worthwhile package)
@@ -7,7 +7,7 @@ setup(
     author='Jens Hanack',
     author_email='jens.hanack@europace.de',
     # Needed to actually package something
-    packages=['dnacommon'],
+    packages=find_packages(exclude=['tests','scripts']),
     # Needed for dependencies
     install_requires=['boto3'],
     version='1.0',
