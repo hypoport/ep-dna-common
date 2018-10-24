@@ -9,7 +9,11 @@ setup(
     # Needed to actually package something
     packages=find_packages(exclude=['tests','scripts']),
     # Needed for dependencies
-    install_requires=['boto3'],
+    install_requires=['boto3',
+                      'dataclasses',
+                      'sqlalchemy',
+                      'python-aws-dataclasses',
+                      'sqlalchemy-redshift'],
     version='1.0',
     description='Installierbares Python Package für Hilfsfunktionen im Umgang mit dem Data Lake, Data Warehouse und AWS',
     # long_description=open('README.md').read(),

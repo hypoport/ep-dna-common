@@ -9,7 +9,6 @@ dataclasses = "*"
 sqlalchemy = "*"
 sqlalchemy-redshift = "*"
 python-aws-dataclasses = {git = "https://github.com/hypoport/python-aws-dataclasses.git", ref = "dev"}
-pytz = "*"
 
 [dev-packages]
 "boto3" = "*"

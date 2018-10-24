@@ -1,9 +1,9 @@
 from datetime import datetime
-import pytz
+from dateutil import tz
 
 def now() -> datetime:
     """
     get now with std timezone
     :return:
     """
-    return datetime.now(tz=pytz.timezone('Europe/Berlin'))
+    return datetime.now(tz=tz.gettz('Europe/Berlin'))
