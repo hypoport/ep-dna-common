@@ -2,15 +2,6 @@ import logging
 
 import sys
 
-CRITICAL = logging.CRITICAL
-FATAL = logging.FATAL
-ERROR = logging.ERROR
-WARN = logging.WARN
-WARNING = logging.WARNING
-INFO = logging.INFO
-DEBUG = logging.DEBUG
-NOTSET = logging.NOTSET
-
 _logging_nameToLevel = {
     'CRITICAL': logging.CRITICAL,
     'FATAL': logging.FATAL,
@@ -23,11 +14,8 @@ _logging_nameToLevel = {
 }
 
 
-def name_as_level(name: str):
-    if name is not None:
-        return _logging_nameToLevel.get(name.upper(), "INFO")
-    else:
-        return "INFO"
+def name_as_level(name: str) -> int:
+    return _logging_nameToLevel.get(name.upper(), logging.INFO) if name is not None else logging.INFO
 
 
 def get_logger(name, loglevel=logging.DEBUG):
@@ -37,7 +25,8 @@ def get_logger(name, loglevel=logging.DEBUG):
     if not logger.handlers:
         ch = logging.StreamHandler(sys.stdout)
         ch.setLevel(loglevel)
-        formatter = logging.Formatter('[%(levelname)s] %(asctime)s - %(name)s - %(message)s')
+        formatter = logging.Formatter(
+            '[%(levelname)s] %(asctime)s - %(name)s - %(message)s')
         ch.setFormatter(formatter)
         logger.addHandler(ch)
     return logger
