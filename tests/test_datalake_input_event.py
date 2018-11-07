@@ -1,6 +1,6 @@
 import json
 
-from datalake.input_event import DatalakeInputEvent
+from dnacommon.datalake.input_event import DatalakeInputEvent
 
 
 def test_input_event_creation():
@@ -42,4 +42,5 @@ def test_publish():
         identifiers={'id1': 'a', 'id2': 'b'},
         tags=['tag1', 'tag2']
     )
-    assert event.send('arn:aws:sns:eu-central-1:677740320946:DeadLetter')['MessageId'] is not None
+    assert event.send(
+        'arn:aws:sns:eu-central-1:677740320946:DeadLetter')['MessageId'] is not None
