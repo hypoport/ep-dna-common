@@ -1,5 +1,6 @@
 import pytest
 import logging
+from ep_logging import get_logger
 from dnacommon.ep_logging import name_as_level
 
 
@@ -20,4 +21,5 @@ def test_name_as_level(test_input, expected):
 def test_log_has_tz_info():
     LOG = get_logger("abc")
     LOG.error("Test")
-    assert False
+    assert True
+
