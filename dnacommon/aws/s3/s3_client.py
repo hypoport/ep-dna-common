@@ -9,12 +9,12 @@ class S3Client:
         self.s3_resource = boto3.resource('s3')
         self.s3_client = boto3.client('s3')
 
-    def upload(self, bucket, path, content):
+    def upload(self, bucket, path, content, acl='private'):
         bucket = self.s3_resource.Bucket(bucket)
         obj = bucket.Object(path)
         # TODO: not optimal
         if isinstance(content, BytesIO):
-            obj.put(Body=content)
+            obj.put(Body=content, ACL=acl)
         else:
             obj.put(Body=content.encode('utf-8'))
 
