@@ -9,6 +9,9 @@ dataclasses = "*"
 sqlalchemy = "*"
 sqlalchemy-redshift = "*"
 python-aws-dataclasses = {git = "https://github.com/hypoport/python-aws-dataclasses.git", ref = "dev"}
+pynamodb = "*"
+PyJWT = "==1.7.1"
+
 
 [dev-packages]
 "boto3" = "*"
