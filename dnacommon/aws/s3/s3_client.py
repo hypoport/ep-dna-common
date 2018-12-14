@@ -12,11 +12,10 @@ class S3Client:
     def upload(self, bucket, path, content, acl='private'):
         bucket = self.s3_resource.Bucket(bucket)
         obj = bucket.Object(path)
-        # TODO: not optimal
-        if isinstance(content, BytesIO):
-            obj.put(Body=content, ACL=acl)
+        if hasattr(content, 'encode'):
+            obj.put(Body=content.encode('utf-8'), ACL=acl)
         else:
-            obj.put(Body=content.encode('utf-8'))
+            obj.put(Body=content, ACL=acl)
 
     def get_content(self, bucket, path):
         bucket = self.s3_resource.Bucket(bucket)
