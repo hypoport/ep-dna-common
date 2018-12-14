@@ -1,6 +1,7 @@
 from jwt.exceptions import ExpiredSignatureError
 import jwt
-
+from jwt.contrib.algorithms.pycrypto import RSAAlgorithm
+jwt.register_algorithm('RS256', RSAAlgorithm(RSAAlgorithm.SHA256))
 
 class EpJwtVerifier:
     def __init__(self, public_key):
@@ -9,7 +10,7 @@ class EpJwtVerifier:
     def decode(self, token, verify=True):
         jwt_data = EpJwtData(invalid=not verify, expired=not verify)
         try:
-            decoded = jwt.decode(token, self.public_key, algorithms=['RS256'], audience="Reporting", verify=verify)
+            decoded = jwt.decode(token, self.public_key, algorithms=['RS256'], verify=verify)
             self.fill_jwt_data(jwt_data, decoded)
         except ExpiredSignatureError as err:
             jwt_data.expired = True

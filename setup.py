@@ -7,13 +7,18 @@ setup(
     author='Jens Hanack',
     author_email='jens.hanack@europace.de',
     # Needed to actually package something
-    packages=find_packages(exclude=['tests','scripts']),
+    packages=find_packages(exclude=['tests', 'scripts']),
     # Needed for dependencies
     install_requires=['boto3',
                       'dataclasses',
                       'sqlalchemy',
                       'python-aws-dataclasses',
-                      'sqlalchemy-redshift'],
+                      'sqlalchemy-redshift',
+                      'python-aws-dataclasses',
+                      'pynamodb',
+                      'PyJWT',
+                      'pycrypto'
+                      ],
     version='1.0',
     description='Installierbares Python Package für Hilfsfunktionen im Umgang mit dem Data Lake, Data Warehouse und AWS',
     # long_description=open('README.md').read(),

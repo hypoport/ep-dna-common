@@ -10,6 +10,7 @@ sqlalchemy = "*"
 sqlalchemy-redshift = "*"
 python-aws-dataclasses = {git = "https://github.com/hypoport/python-aws-dataclasses.git", ref = "dev"}
 pynamodb = "*"
+pycrypto= "*"
 PyJWT = "==1.7.1"
 
 
