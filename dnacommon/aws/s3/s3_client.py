@@ -17,6 +17,14 @@ class S3Client:
         else:
             obj.put(Body=content, ACL=acl)
 
+    def copy_s3_to_s3(self, source_bucket: str, source_path: str, target_bucket: str, target_path: str) -> None:
+        copy_source = {
+            'Bucket': source_bucket,
+            'Key': source_path
+        }
+        bucket = self.s3_resource.Bucket(target_bucket)
+        bucket.copy(copy_source, target_path)
+
     def get_content(self, bucket, path):
         bucket = self.s3_resource.Bucket(bucket)
         obj = bucket.Object(path)
