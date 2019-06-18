@@ -12,9 +12,10 @@ setup(
     install_requires=['boto3',
                       'dataclasses',
                       'sqlalchemy',
+                      'psycopg2>=2.7,<2.8',
                       'python-aws-dataclasses',
                       'sqlalchemy-redshift'],
-    version='1.0',
+    version='2019-06-18-09-57',
     description='Installierbares Python Package für Hilfsfunktionen im Umgang mit dem Data Lake, Data Warehouse und AWS',
     # long_description=open('README.md').read(),
 )
