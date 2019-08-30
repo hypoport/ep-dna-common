@@ -12,26 +12,27 @@ class S3Client:
     def upload(self, bucket, path, content):
         bucket = self.s3_resource.Bucket(bucket)
         obj = bucket.Object(path)
-        # TODO: not optimal
-        if isinstance(content, BytesIO):
-            obj.put(Body=content)
-        else:
+        if isinstance(content, str):
             obj.put(Body=content.encode('utf-8'))
-
+        else:
+            obj.put(Body=content)
+            
     def get_content(self, bucket, path):
         bucket = self.s3_resource.Bucket(bucket)
         obj = bucket.Object(path)
         content = obj.get()['Body'].read()
-        # TODO: not optimal
-        if isinstance(content, bytes):
-            return content
-        return content.decode('utf-8')
+        if isinstance(content, str):
+            return content.decode('utf-8')
+        return content
 
     def content_readlines(self, bucket, path):
         bucket = self.s3_resource.Bucket(bucket)
         obj = bucket.Object(path)
         for line in BytesIO(obj.get()['Body'].read()):
-            yield line.decode('utf-8')
+            if isinstance(line, str):
+                yield line.decode('utf-8')
+            else:
+                yield line
         return
 
     def delete(self, bucket, path):
