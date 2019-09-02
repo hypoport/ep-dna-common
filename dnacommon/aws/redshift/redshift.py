@@ -1,14 +1,15 @@
-import sqlalchemy as sa
-from sqlalchemy.engine import Connection, Engine
-from dnacommon.ep_logging import get_logger
-
-
 from base64 import b64decode
 
 import boto3
-from dataclasses import dataclass, field, InitVar
+import sqlalchemy as sa
+from botocore.exceptions import ClientError
+from dataclasses import dataclass, field
+from sqlalchemy.engine import Connection, Engine
+
+from dnacommon.ep_logging import get_logger
 
 KMS = boto3.client('kms')
+
 
 @dataclass
 class RedshiftConfiguration:
@@ -17,11 +18,47 @@ class RedshiftConfiguration:
     iam_role: str
     database: str
     username: str
-    encrypted_password: InitVar[str]
-    password: str = field(init=False)
+    secret_name: str = field(default=None)
+    encrypted_password: str = field(default=None)
+    password: str = field(default=None)
 
-    def __post_init__(self, encrypted_password: str):
-        self.password = KMS.decrypt(CiphertextBlob=b64decode(encrypted_password))['Plaintext'].decode("utf-8")
+    def __post_init__(self):
+        # TODO check if either encrypted password or secret_name
+        if self.encrypted_password is not None:
+            self.password = KMS.decrypt(CiphertextBlob=b64decode(self.encrypted_password))['Plaintext'].decode("utf-8")
+        elif self.secret_name is not None:
+            # TODO so in etwa
+            self.password = self.get_secret(self.secret_name)
+        else:
+            raise RuntimeError("Specify either encrypted_password or secret_name!")
+
+    def get_secret(self, secret_name):
+
+        # Create a Secrets Manager client
+        session = boto3.session.Session()
+        client = session.client(
+            service_name='secretsmanager',
+            region_name="eu-central-1"
+        )
+
+        # In this sample we only handle the specific exceptions for the 'GetSecretValue' API.
+        # See https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
+        # We rethrow the exception by default.
+
+        try:
+            get_secret_value_response = client.get_secret_value(
+                SecretId=secret_name
+            )
+        except ClientError as e:
+            raise e
+        else:
+            # Decrypts secret using the associated KMS CMK.
+            # Depending on whether the secret is a string or binary, one of these fields will be populated.
+            if 'SecretString' in get_secret_value_response:
+                secret = get_secret_value_response['SecretString']
+            else:
+                raise RuntimeError("Could not extract secret values from secret manager response.")
+
 
 class RedshiftConnector:
     __log = get_logger(__name__)
