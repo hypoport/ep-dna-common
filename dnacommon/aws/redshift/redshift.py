@@ -1,4 +1,6 @@
+import json
 from base64 import b64decode
+from typing import Dict
 
 import boto3
 import sqlalchemy as sa
@@ -23,16 +25,14 @@ class RedshiftConfiguration:
     password: str = field(default=None)
 
     def __post_init__(self):
-        # TODO check if either encrypted password or secret_name
         if self.encrypted_password is not None:
             self.password = KMS.decrypt(CiphertextBlob=b64decode(self.encrypted_password))['Plaintext'].decode("utf-8")
         elif self.secret_name is not None:
-            # TODO so in etwa
-            self.password = self.get_secret(self.secret_name)
+            self.password = self.get_secret(self.secret_name).get('password', {})
         else:
             raise RuntimeError("Specify either encrypted_password or secret_name!")
 
-    def get_secret(self, secret_name):
+    def get_secret(self, secret_name) -> Dict:
 
         # Create a Secrets Manager client
         session = boto3.session.Session()
@@ -55,7 +55,7 @@ class RedshiftConfiguration:
             # Decrypts secret using the associated KMS CMK.
             # Depending on whether the secret is a string or binary, one of these fields will be populated.
             if 'SecretString' in get_secret_value_response:
-                secret = get_secret_value_response['SecretString']
+                return json.loads(get_secret_value_response['SecretString'])
             else:
                 raise RuntimeError("Could not extract secret values from secret manager response.")
 
