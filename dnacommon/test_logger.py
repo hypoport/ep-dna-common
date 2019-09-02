@@ -1,6 +1,6 @@
 import pytest
 import logging
-from ep_logging import get_logger
+from dnacommon.ep_logging import get_logger
 from dnacommon.ep_logging import name_as_level
 
 
