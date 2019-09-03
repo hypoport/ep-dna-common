@@ -14,6 +14,7 @@ python-aws-dataclasses = {git = "https://github.com/hypoport/python-aws-dataclas
 "boto3" = "*"
 pytest = "*"
 pytest-runner = "*"
+pytest-mock = "*"
 
 [requires]
 python_version = "3.6"
