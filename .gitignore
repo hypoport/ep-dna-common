@@ -102,3 +102,10 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+/.idea/ep-dna-common.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/libraries/R_User_Library.xml
+/.idea/rSettings.xml
+/.idea/vcs.xml
+/.idea/.gitignore
